@@ -1,11 +1,6 @@
-import usb
-import sys
-import struct
-import bitstring
-
-import os
-import serial
 import time
+import bitstring
+import serial
 
 ### Animation constants
 
