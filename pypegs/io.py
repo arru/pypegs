@@ -7,19 +7,23 @@ import os
 import serial
 import time
 
+### Animation constants
+
 # references to left and right are from a viewer's perspective,
 # looking at the face of the PEGS wearer
 NOSE_GAP = 3
 DISPLAY_EYE_WIDTH = 12
 DISPLAY_HEIGHT = 7
 FRAME_WIDTH = NOSE_GAP + DISPLAY_EYE_WIDTH * 2
-WELCOME_REFERENCE = "V1.0 - Caleb Pinckney"
-FRAMES_MAGIC_SENTENCE = "0123456789012345678"
 FRAMERATE_MAX = 40
 FRAMERATE_MIN = 1
-NUM_BANKS = 8
+
+### Memory & upload constants
 
 PEGS_BAUDRATE = 57600
+NUM_BANKS = 8
+WELCOME_REFERENCE = "V1.0 - Caleb Pinckney"
+FRAMES_MAGIC_SENTENCE = "0123456789012345678"
 
 class Pegs(object):
 	dev = None
