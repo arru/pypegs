@@ -10,7 +10,7 @@ NOSE_GAP = 3
 DISPLAY_EYE_WIDTH = 12
 DISPLAY_HEIGHT = 7
 FRAME_WIDTH = NOSE_GAP + DISPLAY_EYE_WIDTH * 2
-FRAMERATE_MAX = 40
+FRAMERATE_MAX = 60
 FRAMERATE_MIN = 1
 
 ### Memory & upload constants
@@ -80,7 +80,7 @@ class Pegs(object):
 
 		assert len(data) >= 1
 		assert framerate >= FRAMERATE_MIN
-		assert framerate < FRAMERATE_MAX
+		assert framerate <= FRAMERATE_MAX
 
 		self._open_bank(bank)
 
