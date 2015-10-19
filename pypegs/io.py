@@ -19,6 +19,7 @@ FRAMERATE_MAX = 40
 FRAMERATE_MIN = 1
 NUM_BANKS = 8
 
+PEGS_BAUDRATE = 57600
 
 class Pegs(object):
 	dev = None
@@ -115,7 +116,7 @@ class Pegs(object):
 	def connect_first():
 		print "Opening serial port..."
 
-		term = serial.Serial("/dev/tty.usbserial-A7041TBD", baudrate=57600)  # , timeout=5)
+		term = serial.Serial("/dev/tty.usbserial-A7041TBD", baudrate=PEGS_BAUDRATE)  # , timeout=5)
 
 		print "Handshaking"
 
