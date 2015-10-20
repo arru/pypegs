@@ -75,18 +75,18 @@ class Pegs(object):
 
 		return bytes
 
-	def upload_sequence(self, bank, framerate, data):
+	def upload_sequence(self, bank, framerate, frames):
 		"""Framerate argument shall be frames/sec. TODO: Convert as necessary"""
 
-		num_frames = len(data)
+		num_frames = len(frames)
 		assert num_frames >= 1
 		assert num_frames <= MAX_FRAMES
 		assert framerate >= FRAMERATE_MIN
 		assert framerate <= FRAMERATE_MAX
 
-		# Prepare data
+		# Prepare frames
 		pixel_stream = []
-		for frame in data:
+		for frame in frames:
 			assert len(frame) == DISPLAY_HEIGHT
 			for line in frame:
 				assert len(line) == FRAME_WIDTH
@@ -124,7 +124,7 @@ class Pegs(object):
 
 		self.dev.write(meta_bytes.bytes)
 
-		# Write frame data
+		# Write frame frames
 		chunk_counter = 0
 		last_tx = 0
 
