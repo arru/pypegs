@@ -17,8 +17,10 @@ FRAMERATE_MIN = 1
 
 PEGS_BAUDRATE = 57600
 NUM_BANKS = 8
+MAX_FRAMES = 160
 WELCOME_REFERENCE = "V1.0 - Caleb Pinckney"
 FRAMES_MAGIC_SENTENCE = "0123456789012345678"
+
 
 class Pegs(object):
 	dev = None
@@ -74,6 +76,7 @@ class Pegs(object):
 		"""Framerate argument shall be frames/sec. TODO: Convert as necessary"""
 
 		assert len(data) >= 1
+		assert len(data) <= MAX_FRAMES
 		assert framerate >= FRAMERATE_MIN
 		assert framerate <= FRAMERATE_MAX
 
