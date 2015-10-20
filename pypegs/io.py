@@ -116,12 +116,12 @@ class Pegs(object):
 
 		print "Uploading %d frames" % num_frames
 
-		#Write header
+		# Write header
 		self.dev.write(FRAMES_MAGIC_SENTENCE)
 
 		self.dev.write(meta_bytes.bytes)
 
-		#Write frame data
+		# Write frame data
 		chunk_counter = 0
 		for chunk in pixel_stream:
 			self.dev.write(chunk)
