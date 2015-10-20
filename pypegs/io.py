@@ -131,6 +131,8 @@ class Pegs(object):
 
 		print "Upload done"
 
+		self.dev.close()
+
 	@staticmethod
 	def connect_first():
 		print "Opening serial port..."
