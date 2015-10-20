@@ -70,11 +70,6 @@ class Pegs(object):
 
 		return bytes
 
-	def _upload_line(self, line):
-		bytes = Pegs._pack_line(line)
-		for b in bytes:
-			self.dev.write(b)
-
 	def upload_sequence(self, bank, framerate, data):
 		"""Framerate argument shall be frames/sec. TODO: Convert as necessary"""
 
@@ -82,11 +77,23 @@ class Pegs(object):
 		assert framerate >= FRAMERATE_MIN
 		assert framerate <= FRAMERATE_MAX
 
+		# Prepare data
+		bytes = []
+		for frame in data:
+			for line in frame:
+				bytes.extend(Pegs._pack_line(line))
+
+		num_frames_byte = bitstring.Bits(uint=len(data), length=8)
+		framerate_byte = bitstring.Bits(uint=framerate, length=8)
+		meta_bytes = num_frames_byte + framerate_byte
+
+		# Open PEGS for write
 		self._open_bank(bank)
 
 		assert self.write_enabled == True
 		assert self.bank is not None
 
+		print "Erasing"
 		TestTerminal.testPrepare(self.dev, "Erased 4K\x0d\x0a>")
 		erase = SerialExchange(self.dev, "Erase4K", "Erased 4K\x0d\x0a>")
 		assert erase.execute()
@@ -95,19 +102,20 @@ class Pegs(object):
 		write_long = SerialExchange(self.dev, "WriteLong", "Begin writting\x0d\x0a")
 		assert write_long.execute()
 
-		self.dev.write(FRAMES_MAGIC_SENTENCE)
+		print "Uploading %d frames" % len(data)
 
-		num_frames_byte = bitstring.Bits(uint=len(data), length=8)
-		framerate_byte = bitstring.Bits(uint=framerate, length=8)
-		meta_bytes = num_frames_byte + framerate_byte
+		#Write header
+		self.dev.write(FRAMES_MAGIC_SENTENCE)
 
 		self.dev.write(meta_bytes.bytes)
 
-		print "Uploading %d frames" % len(data)
-		for frame in data:
-			for line in frame:
-				self._upload_line(line)
-			print "*",
+		#Write frame data
+		chunk_counter = 0
+		for chunk in bytes:
+			self.dev.write(chunk)
+			chunk_counter = chunk_counter + 1
+			if chunk_counter % (DISPLAY_HEIGHT * DISPLAY_EYE_WIDTH * 2) == 0:
+				print "*",
 
 		print "Upload done"
 
