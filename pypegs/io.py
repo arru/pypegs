@@ -190,16 +190,26 @@ class SerialExchange:
 class TestTerminal(object):
 	"""Drop-in replacement for Serial device, printing writes and returning pre-set data (using testPrepare(...) on read"""
 	prepared_data = None
+	open = False
+
+	def __init__(self):
+		self.open = True
 
 	def write(self, data):
+		assert self.open == True
 		bytestream = bitstring.Bits(bytes=data, length=len(data) * 8)
 		print "%s\t%s" % (bytestream.hex, bytestream.tobytes())
 
 	def read(self):
+		assert self.open == True
 		assert self.prepared_data is not None, "TestTerminal error: read without prepared data"
 		data = self.prepared_data
 		self.prepared_data = None
 		return data
+
+	def close(self):
+		self.open = False
+		print "TestTerminal closed"
 
 	def inWaiting(self):
 		if self.prepared_data is not None:
