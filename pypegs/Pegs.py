@@ -148,6 +148,7 @@ class Pegs(object):
 	def connect_first():
 		print "Opening serial port..."
 
+		#FIXME look for usb serial port in /dev/
 		term = serial.Serial("/dev/tty.usbserial-A7041TBD", baudrate=PEGS_BAUDRATE)  # , timeout=5)
 
 		print "Handshaking"
