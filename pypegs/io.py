@@ -136,9 +136,10 @@ class Pegs(object):
 			self.dev.write(chunk)
 
 			chunk_counter = chunk_counter + 1
-			if chunk_counter % (DISPLAY_HEIGHT * DISPLAY_EYE_WIDTH * 2) == 0:
+			if chunk_counter % ((DISPLAY_HEIGHT * DISPLAY_EYE_WIDTH * 2) / 8) == 0:
 				print "*",
 
+		print
 		print "Upload done"
 
 		self.dev.close()
