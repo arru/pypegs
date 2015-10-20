@@ -182,7 +182,7 @@ class SerialExchange:
 
 		# wait for response to begin
 		while self.term.inWaiting() == 0 and time.time() - wait_start < self.TIMEOUT:
-			time.sleep(0.2)
+			time.sleep(self.TIMEOUT / 100)
 
 		# listen for response until message found (or timeout)
 		while time.time() - wait_start < self.TIMEOUT:
