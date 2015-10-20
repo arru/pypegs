@@ -16,6 +16,9 @@ FRAMERATE_MIN = 1
 ### Memory & upload constants
 
 PEGS_BAUDRATE = 57600
+# Time delay in seconds between transmitted pixel bytes, based on measured output
+# from PEGS glasses designer. Disable = set to 0.0
+UPLOAD_THROTTLE = 0.000984
 NUM_BANKS = 8
 MAX_FRAMES = 160
 WELCOME_REFERENCE = "V1.0 - Caleb Pinckney"
@@ -123,8 +126,15 @@ class Pegs(object):
 
 		# Write frame data
 		chunk_counter = 0
+		last_tx = 0
+
 		for chunk in pixel_stream:
+			while time.clock() < last_tx + UPLOAD_THROTTLE:
+				time.sleep(UPLOAD_THROTTLE / 5)
+
+			last_tx = time.clock()
 			self.dev.write(chunk)
+
 			chunk_counter = chunk_counter + 1
 			if chunk_counter % (DISPLAY_HEIGHT * DISPLAY_EYE_WIDTH * 2) == 0:
 				print "*",
