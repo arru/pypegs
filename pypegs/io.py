@@ -75,18 +75,27 @@ class Pegs(object):
 	def upload_sequence(self, bank, framerate, data):
 		"""Framerate argument shall be frames/sec. TODO: Convert as necessary"""
 
-		assert len(data) >= 1
-		assert len(data) <= MAX_FRAMES
+		num_frames = len(data)
+		assert num_frames >= 1
+		assert num_frames <= MAX_FRAMES
 		assert framerate >= FRAMERATE_MIN
 		assert framerate <= FRAMERATE_MAX
 
 		# Prepare data
-		bytes = []
+		pixel_stream = []
 		for frame in data:
+			assert len(frame) == DISPLAY_HEIGHT
 			for line in frame:
-				bytes.extend(Pegs._pack_line(line))
+				assert len(line) == FRAME_WIDTH
+				line_bytes = Pegs._pack_line(line)
+				assert len(line_bytes) == 3
+				pixel_stream.extend(line_bytes)
 
-		num_frames_byte = bitstring.Bits(uint=len(data), length=8)
+		assert len(pixel_stream) == ((num_frames * DISPLAY_HEIGHT * DISPLAY_EYE_WIDTH * 2) / 8)
+		for b in pixel_stream:
+			assert b is not None
+
+		num_frames_byte = bitstring.Bits(uint=num_frames, length=8)
 		framerate_byte = bitstring.Bits(uint=framerate, length=8)
 		meta_bytes = num_frames_byte + framerate_byte
 
@@ -105,7 +114,7 @@ class Pegs(object):
 		write_long = SerialExchange(self.dev, "WriteLong", "Begin writting\x0d\x0a")
 		assert write_long.execute()
 
-		print "Uploading %d frames" % len(data)
+		print "Uploading %d frames" % num_frames
 
 		#Write header
 		self.dev.write(FRAMES_MAGIC_SENTENCE)
@@ -114,7 +123,7 @@ class Pegs(object):
 
 		#Write frame data
 		chunk_counter = 0
-		for chunk in bytes:
+		for chunk in pixel_stream:
 			self.dev.write(chunk)
 			chunk_counter = chunk_counter + 1
 			if chunk_counter % (DISPLAY_HEIGHT * DISPLAY_EYE_WIDTH * 2) == 0:
