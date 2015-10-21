@@ -1,6 +1,8 @@
 import time
+
 import bitstring
 import serial
+
 
 ### Animation constants
 
@@ -10,7 +12,7 @@ TXT_NOSE_GAP = 3
 DISPLAY_EYE_WIDTH = 12
 DISPLAY_HEIGHT = 7
 NOSE_GAP = 6.1832
-PIXEL_ASPECT = 0,63007
+PIXEL_ASPECT = 0.63007
 FRAME_WIDTH = TXT_NOSE_GAP + DISPLAY_EYE_WIDTH * 2
 FRAMERATE_MAX = 60
 FRAMERATE_MIN = 1
