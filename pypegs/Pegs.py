@@ -1,4 +1,6 @@
 import time
+import glob
+import os
 
 import bitstring
 import serial
@@ -19,6 +21,7 @@ FRAMERATE_MIN = 1
 
 ### Memory & upload constants
 
+SERIAL_DEV_ROOT = "/dev/"
 PEGS_BAUDRATE = 57600
 # Time delay in seconds between transmitted pixel bytes, based on measured output
 # from PEGS glasses designer. Disable = set to 0.0
@@ -149,21 +152,36 @@ class Pegs(object):
 		self.dev.close()
 
 	@staticmethod
-	def connect_first():
+	def connect(port_path=None):
 		print "Opening serial port..."
 
-		#FIXME look for usb serial port in /dev/
-		term = serial.Serial("/dev/tty.usbserial-A7041TBD", baudrate=PEGS_BAUDRATE)  # , timeout=5)
+		# This way of auto-finding PEGS serial port only works on POSIX systems
+
+		if port_path is None:
+			os.chdir(SERIAL_DEV_ROOT)
+			ports = glob.glob("tty.usbserial*")
+			if len(ports) == 1:
+				port_path = ports[0]
+			else:
+				if len(ports) > 1:
+					print "Found more than one serial unit that could be PEGS. Please choose the one to connect to and re-run this command with this port specified in the arguments."
+					for p in ports:
+						print p
+				else:
+					print "Could not find PEGS. Make sure they are connected, turned on, and you're either running Mac OSX 10.9 or later, or installed the FTDI drivers (see readme.md)"
+				return None
+
+		term = serial.Serial(port_path, baudrate=PEGS_BAUDRATE)  # , timeout=5)
 
 		print "Handshaking"
 
 		TestTerminal.testPrepare(term, WELCOME_REFERENCE)
 		handshake = SerialExchange(term, None, WELCOME_REFERENCE)
 		if handshake.wait():
-			print "These are PEGS"
+			print "Connected to PEGS on port %s" % port_path
 			return Pegs(term)
 		else:
-			print "These are not PEGS"
+			print "Device port %s is not PEGS (or handshake failed for some other reason)" % port_path
 
 		return None
 
