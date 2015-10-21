@@ -10,12 +10,11 @@ import serial
 
 # references to left and right are from a viewer's perspective,
 # looking at the face of the PEGS wearer
-TXT_NOSE_GAP = 3
 DISPLAY_EYE_WIDTH = 12
 DISPLAY_HEIGHT = 7
 NOSE_GAP = 6.1832
 PIXEL_ASPECT = 0.63007
-FRAME_WIDTH = TXT_NOSE_GAP + DISPLAY_EYE_WIDTH * 2
+FRAME_WIDTH = DISPLAY_EYE_WIDTH * 2
 FRAMERATE_MAX = 60
 FRAMERATE_MIN = 1
 
@@ -74,7 +73,6 @@ class Pegs(object):
 		bytes[0] = line_bits.read('bytes:1')
 
 		composite_bits = line_bits.read('bits:4')
-		line_bits.pos = line_bits.pos + TXT_NOSE_GAP
 		composite_bits = composite_bits + line_bits.read('bits:4')
 		bytes[1] = composite_bits.bytes
 

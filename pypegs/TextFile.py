@@ -7,6 +7,8 @@ from FrameFile import FrameFile
 class TextFile(FrameFile):
 	"""Reader for PEGS glasses designer .txt files"""
 	TXT_FRAME_HEIGHT = 8
+	TXT_NOSE_GAP = 3
+
 	HEADER_RE = re.compile("6,(\d+),(\d+)")
 	PIXELS_RE = re.compile("[01]{28}")
 
@@ -18,9 +20,10 @@ class TextFile(FrameFile):
 		line_data = []
 
 		for c, char in enumerate(line):
-			if c < Pegs.FRAME_WIDTH:
+			if c < Pegs.DISPLAY_EYE_WIDTH * 2 + TextFile.TXT_NOSE_GAP:
 				assert (char == "0" or char == "1")
-				line_data.append(int(char))
+				if c < Pegs.DISPLAY_EYE_WIDTH or c >= Pegs.DISPLAY_EYE_WIDTH + TextFile.TXT_NOSE_GAP:
+					line_data.append(int(char))
 
 		assert len(line_data) == Pegs.FRAME_WIDTH
 		return line_data
@@ -43,7 +46,7 @@ class TextFile(FrameFile):
 						num_frames = int(header.group(1))
 						self.fps = int(header.group(2))
 				elif frame_line_counter > num_frames * Pegs.DISPLAY_HEIGHT:
-					#All frames read, done
+					# All frames read, done
 					break
 				else:
 					pixels = self.PIXELS_RE.match(line)
