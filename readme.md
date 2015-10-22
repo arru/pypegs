@@ -1,5 +1,5 @@
-PEGS party shades utilities
-===========================
+pyPEGS party shades Python utilities
+====================================
 
 Open source, platform agnostic utilites for the flashy PEGS LED sunglasses made by Infinite Reach (www.infinitereachsc.com). Finally a way to upload animations without a Windows computer, and designing animations using any GIF-outputting software of your choice!
 
@@ -28,7 +28,9 @@ This is third party hobbyist software created by reverse engineering. No guarant
 
 License
 -------
-PyPegs project copyrght © 2015 Arvid Rudling. licensed under the Mozilla Public License 2.0, se LICENSE file
+PyPegs project copyright © 2015 Arvid Rudling.
+
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 All trademarks are the property of their respective owners.
 
