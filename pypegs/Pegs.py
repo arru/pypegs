@@ -176,8 +176,7 @@ class Pegs(object):
 		# This way of auto-finding PEGS serial port only works on POSIX systems
 
 		if port_path is None:
-			os.chdir(SERIAL_DEV_ROOT)
-			ports = glob.glob("tty.usbserial*")
+			ports = glob.glob(os.path.join(SERIAL_DEV_ROOT, "tty.usbserial*"))
 			if len(ports) == 1:
 				port_path = ports[0]
 			else:
