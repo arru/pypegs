@@ -30,16 +30,16 @@ class GifFile(FrameFile):
 			assert frame_width == input_width
 			assert frame_height == Pegs.DISPLAY_HEIGHT
 
-			pixels = list(gif_frame.getdata())
+			pixels = list(gif_frame.convert('RGB').getdata())
 			pixels = [pixels[i * input_width:(i + 1) * input_width] for i in xrange(frame_height)]
 
 			for row in pixels:
 				line_data = []
 				for pix in row:
-					# TODO: assumes 2-color palette where black (off) is first color
-					# use color table instead
-					assert pix == 0 or pix == 1
-					line_data.append(pix)
+					if max(pix[0], pix[1], pix[2]) > GifFile.THRESHOLD:
+						line_data.append(1)
+					else:
+						line_data.append(0)
 
 				assert len(line_data) == Pegs.FRAME_WIDTH
 				current_frame.append(line_data)
