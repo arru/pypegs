@@ -9,15 +9,15 @@ __Please be aware that you are using this software at your own risk. There are p
 
 ### Parts
 1. `pypegs` module that handles conversion of animation data and communication with PEGS
-1. scripts to upload animations from your computer into PEGS
+1. script to upload animations from your computer into PEGS
 
 Requirements
 ------------
 * [Future Technology Devices International drivers](http://www.ftdichip.com/FTDrivers.htm) (comes __pre-installed__ on Mac OSX 10.9 or later)
 * External Python modules:
-`PIL` (Python Imaging Library)
-`bitstring`
-`pyserial`
+  *`PIL` (Python Imaging Library)
+  *`bitstring`
+  *`pyserial`
 * PEGS shades B-)
 
 Compatibility
