@@ -111,6 +111,7 @@ class Pegs(object):
 
 		assert len(pixel_stream) == ((num_frames * DISPLAY_HEIGHT * DISPLAY_EYE_WIDTH * 2) / 8)
 		for b in pixel_stream:
+			assert len(b) == 1
 			assert b is not None
 
 		num_frames_byte = bitstring.Bits(uint=num_frames, length=8)
