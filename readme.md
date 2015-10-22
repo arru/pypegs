@@ -15,9 +15,9 @@ Requirements
 ------------
 * [Future Technology Devices International drivers](http://www.ftdichip.com/FTDrivers.htm) (comes __pre-installed__ on Mac OSX 10.9 or later)
 * External Python modules:
-  *`PIL` (Python Imaging Library)
-  *`bitstring`
-  *`pyserial`
+  * `PIL` (Python Imaging Library)
+  * `bitstring`
+  * `pyserial`
 * PEGS shades B-)
 
 Compatibility
