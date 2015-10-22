@@ -22,7 +22,7 @@ args = parser.parse_args()
 if args.test:
 	shades = Pegs.Pegs(TestTerminal())
 else:
-	pegs = Pegs.Pegs.connect(args.port)
+	shades = Pegs.Pegs.connect(args.port)
 
 if shades is None:
 	print "No PEGS connected to your computer"
