@@ -9,6 +9,7 @@ __Please be aware that you are using this software at your own risk. There are p
 
 ### Parts
 1. `pypegs` module that handles conversion of animation data and communication with PEGS
+1. scripts to upload animations from your computer into PEGS
 
 Requirements
 ------------
@@ -17,7 +18,7 @@ Requirements
 `PIL` (Python Imaging Library)
 `bitstring`
 `pyserial`
-* PEGS shades ;-)
+* PEGS shades B-)
 
 Compatibility
 -------------

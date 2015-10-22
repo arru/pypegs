@@ -46,7 +46,7 @@ class Pegs(object):
 		assert self.write_enabled == True
 		self.write_enabled = False
 		self.bank = None
-		
+
 		print "PEGS connection closed. Please disconnect PEGS."
 
 	def _open_bank(self, bank):
@@ -67,7 +67,7 @@ class Pegs(object):
 		assert enable_write.execute()
 
 		self.write_enabled = True
-		print "Bank %d opened for write. DO NOT DISCONNECT PEGS." % self.bank
+		print "Slot %d opened for write. DO NOT DISCONNECT PEGS." % (self.bank + 1)
 
 	@staticmethod
 	def _pack_line(line):
@@ -173,7 +173,7 @@ class Pegs(object):
 				port_path = ports[0]
 			else:
 				if len(ports) > 1:
-					print "Found more than one serial unit that could be PEGS. Please choose the one to connect to and re-run this command with this port specified in the arguments."
+					print "Found more than one serial unit that could be PEGS. Please choose the one to connect to and re-run this command with --port <port of choice>"
 					for p in ports:
 						print p
 				else:
