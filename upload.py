@@ -25,7 +25,6 @@ else:
 	shades = Pegs.Pegs.connect(args.port)
 
 if shades is None:
-	print "No PEGS connected to your computer"
 	exit()
 
 filename, file_extension = os.path.splitext(args.file)
