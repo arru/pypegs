@@ -12,9 +12,6 @@ class TextFile(FrameFile):
 	HEADER_RE = re.compile("6,(\d+),(\d+)")
 	PIXELS_RE = re.compile("[01]{28}")
 
-	def __init__(self, path):
-		super(TextFile, self).__init__(path)
-
 	@staticmethod
 	def parseLine(line):
 		line_data = []
