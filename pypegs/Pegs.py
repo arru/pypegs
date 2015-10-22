@@ -40,6 +40,15 @@ class Pegs(object):
 		assert (terminal is not None)
 		self.dev = terminal
 
+	def _close(self):
+		self.dev.close()
+
+		assert self.write_enabled == True
+		self.write_enabled = False
+		self.bank = None
+		
+		print "PEGS connection closed. Please disconnect PEGS."
+
 	def _open_bank(self, bank):
 		# can only do this once in a session, I think
 		assert self.bank is None
@@ -47,8 +56,7 @@ class Pegs(object):
 		assert bank >= 0
 		assert bank < NUM_BANKS
 
-		print "Opening bank %d for write" % bank
-
+		print "Opening PEGS for flash write operation"
 		TestTerminal.testPrepare(self.dev, "Bank Selected\x0d\x0a>")
 		bank_select = SerialExchange(self.dev, "bank" + str(bank), "Bank Selected\x0d\x0a>")
 		assert bank_select.execute()
@@ -57,7 +65,9 @@ class Pegs(object):
 		TestTerminal.testPrepare(self.dev, "Writting Enabled\x0d\x0a>")
 		enable_write = SerialExchange(self.dev, "enwrite", "Writting Enabled\x0d\x0a>")
 		assert enable_write.execute()
+
 		self.write_enabled = True
+		print "Bank %d opened for write. DO NOT DISCONNECT PEGS." % self.bank
 
 	@staticmethod
 	def _pack_line(line):
@@ -147,7 +157,7 @@ class Pegs(object):
 		print
 		print "Upload done"
 
-		self.dev.close()
+		self._close()
 
 	@staticmethod
 	def connect(port_path=None):
