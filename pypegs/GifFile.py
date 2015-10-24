@@ -20,6 +20,7 @@ class GifFile(FrameFile):
 	def read(self):
 		output_frames = []
 		input_width = None
+		image_eye_gap = None
 
 		self.file = open(str(self.path), 'rb')
 
@@ -33,7 +34,9 @@ class GifFile(FrameFile):
 			frame_width, frame_height = gif_frame.size
 			if input_width == None:
 				input_width = frame_width
-				assert input_width == Pegs.FRAME_WIDTH  # or frame_width == Pegs.FRAME_WIDTH + round(int(Pegs.NOSE_GAP))
+				image_eye_gap = frame_width - Pegs.DISPLAY_EYE_WIDTH * 2
+				assert input_width == Pegs.FRAME_WIDTH or frame_width == Pegs.FRAME_WIDTH + round(int(Pegs.NOSE_GAP))
+				assert image_eye_gap >= 0
 
 			# Not sure whether GIF frames can vary in size, but better safe than sorry
 			assert frame_width == input_width
@@ -44,11 +47,13 @@ class GifFile(FrameFile):
 
 			for row in pixels:
 				line_data = []
-				for pix in row:
-					if max(pix[0], pix[1], pix[2]) > GifFile.THRESHOLD:
-						line_data.append(1)
-					else:
-						line_data.append(0)
+				for p, pix in enumerate(row):
+					#skip past nose gap in middle of frame, if frame is 30px wide
+					if p < Pegs.DISPLAY_EYE_WIDTH or p >= Pegs.DISPLAY_EYE_WIDTH + image_eye_gap:
+						if max(pix[0], pix[1], pix[2]) > GifFile.THRESHOLD:
+							line_data.append(1)
+						else:
+							line_data.append(0)
 
 				assert len(line_data) == Pegs.FRAME_WIDTH
 				current_frame.append(line_data)
