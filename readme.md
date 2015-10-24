@@ -21,23 +21,24 @@ Features
 upload.py usage
 ---------------
 ```
-upload.py [-h] [--test] [-p PORT] [-f FPS] slot file
+upload.py [-h] [-p PORT] [-f FPS] [--invert] [--test] slot file
 
 Upload animations to PEGS party shades
 
-positional arguments
+positional arguments:
   slot                  Animation slot (1-8) to upload to
   file                  Input file (24x7 or 30x7 .gif, or glasses designer
                         .txt)
 
-optional arguments
+optional arguments:
   -h, --help            show this help message and exit
-  --test                Run entire program through a dummy terminal instead of
-                        hardware PEGS
-  -p PORT, --port PORT  Use this serial port PORT instead of auto-connect
+  -p PORT, --port PORT  Use the serial port PORT instead of auto-connect
   -f FPS, --framerate FPS
                         Framerate in frames per second. Overrides any value
                         present in input file.
+  --invert              Swap light/dark in animation
+  --test                Run entire program through a dummy terminal instead of
+                        hardware PEGS
 ```
 
 Requirements

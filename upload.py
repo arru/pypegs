@@ -21,6 +21,7 @@ parser = argparse.ArgumentParser(description='Upload animations to PEGS party sh
 parser.add_argument('-p', '--port', help='Use the serial port PORT instead of auto-connect')
 parser.add_argument('-f', '--framerate', type=int, metavar='FPS', default=None,
 					help="Framerate in frames per second. Overrides any value present in input file.")
+parser.add_argument('--invert', action="store_true", help='Swap light/dark in animation')
 parser.add_argument("slot", type=int, help="Animation slot (1-%d) to upload to" % Pegs.NUM_BANKS)
 parser.add_argument('file', help='Input file (24x7 or 30x7 .gif, or glasses designer .txt)')
 parser.add_argument('--test', action="store_true",
@@ -48,5 +49,8 @@ else:
 	exit()
 
 anim_file.read()
+
+if args.invert == True:
+	anim_file.invert()
 
 shades.upload_sequence(args.slot - 1, anim_file.fps, anim_file.frames)
