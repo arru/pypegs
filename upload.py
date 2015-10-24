@@ -13,7 +13,7 @@ import argparse
 import os
 
 from pypegs import Pegs
-from pypegs.Pegs import TestTerminal
+from pypegs.TestTerminal import TestTerminal
 from pypegs.GifFile import GifFile
 from pypegs.TextFile import TextFile
 
