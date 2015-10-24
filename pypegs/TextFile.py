@@ -19,7 +19,7 @@ class TextFile(FrameFile):
 	TXT_NOSE_GAP = 3
 
 	HEADER_RE = re.compile("6,(\d+),(\d+)")
-	PIXELS_RE = re.compile("[01]{28}")
+	PIXELS_RE = re.compile("[01]{27}0")
 
 	@staticmethod
 	def parseLine(line):
