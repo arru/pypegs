@@ -18,13 +18,14 @@ from pypegs.GifFile import GifFile
 from pypegs.TextFile import TextFile
 
 parser = argparse.ArgumentParser(description='Upload animations to PEGS party shades')
-parser.add_argument('--test', action="store_true",
-					help='Run entire program through a dummy terminal instead of hardware PEGS')
-parser.add_argument('-p', '--port', help='Use this serial port PORT instead of auto-connect')
+parser.add_argument('-p', '--port', help='Use the serial port PORT instead of auto-connect')
 parser.add_argument('-f', '--framerate', type=int, metavar='FPS', default=None,
 					help="Framerate in frames per second. Overrides any value present in input file.")
 parser.add_argument("slot", type=int, help="Animation slot (1-%d) to upload to" % Pegs.NUM_BANKS)
-parser.add_argument('file', help='Input file (.gif or .txt)')
+parser.add_argument('file', help='Input file (24x7 or 30x7 .gif, or glasses designer .txt)')
+parser.add_argument('--test', action="store_true",
+					help='Run entire program through a dummy terminal instead of hardware PEGS')
+
 
 args = parser.parse_args()
 
