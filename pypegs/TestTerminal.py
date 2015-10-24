@@ -30,6 +30,12 @@ class TestTerminal(object):
 		self.prepared_data = None
 		return data
 
+	def setRTS(self, level):
+		print "TestTerminal set RTS=%r" % level
+
+	def setDTR(self, level):
+		print "TestTerminal set DTS=%r" % level
+
 	def close(self):
 		self.open = False
 		print "TestTerminal closed"
