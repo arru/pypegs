@@ -11,6 +11,35 @@ __Please be aware that you are using this software at your own risk. There are p
 1. `pypegs` module that handles conversion of animation data and communication with PEGS
 1. script to upload animations from your computer into PEGS
 
+Features
+--------
+* One-line upload script supports GIF animations (and PEGS designer .txt) files as input
+* Heavily error-checking PEGS upload library
+* Fully automatic serial port detection on POSIX systems
+* Works on Mac OS X, and probably any other platform supporting Python and required libraries
+
+upload.py usage
+---------------
+```
+upload.py [-h] [--test] [-p PORT] [-f FPS] slot file
+
+Upload animations to PEGS party shades
+
+positional arguments
+  slot                  Animation slot (1-8) to upload to
+  file                  Input file (24x7 or 30x7 .gif, or glasses designer
+                        .txt)
+
+optional arguments
+  -h, --help            show this help message and exit
+  --test                Run entire program through a dummy terminal instead of
+                        hardware PEGS
+  -p PORT, --port PORT  Use this serial port PORT instead of auto-connect
+  -f FPS, --framerate FPS
+                        Framerate in frames per second. Overrides any value
+                        present in input file.
+```
+
 Requirements
 ------------
 * [Future Technology Devices International drivers](http://www.ftdichip.com/FTDrivers.htm) (comes __pre-installed__ on Mac OSX 10.9 or later)
