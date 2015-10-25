@@ -10,6 +10,7 @@
 import time
 import glob
 import os
+from sys import stdout
 
 import bitstring
 import serial
@@ -164,7 +165,8 @@ class Pegs(object):
 
 			chunk_counter = chunk_counter + 1
 			if chunk_counter % ((DISPLAY_HEIGHT * DISPLAY_EYE_WIDTH * 2) / 8) == 0:
-				print "*",
+				stdout.write("*")
+				stdout.flush()
 
 		print
 		print "Upload done"
