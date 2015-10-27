@@ -3,9 +3,9 @@ pyPEGS party shades Python utilities
 
 Open source, platform agnostic utilites for the flashy PEGS LED sunglasses made by Infinite Reach (www.infinitereachsc.com). Finally a way to upload animations without a Windows computer, and designing animations using any GIF-outputting software of your choice!
 
-This software was designed without consent from Infinite Reach, to move forward when the promised open-sourcing of their OEM software never materialized. IRSC, if you are reading this, do I have questions for you! Anyone else using this, I would love some feedback of your success or problems - and be aware that it's a sketchy piece of software since it was all designed from reverse engineering USB traffic with barely any specification.
+This software was designed without consent from Infinite Reach, to move forward when the promised open-sourcing of their OEM software never materialized.
 
-__Please be aware that you are using this software at your own risk. There are possibilities of irreversibly damaging PEGS hardware from the use of this software.__
+__There are possibilities of irreversibly damaging PEGS hardware from the use of this software. Please be aware that you are using this software at your own risk. I managed to lock myself out of animation mode (EQ only) just by uploading a new sequence. Luckily, doing another upload solved the issue for that time, but: DON'T use this software unless you are OK with the risk of bricking your PEGS.__
 
 ### Parts
 1. `pypegs` module that handles conversion of animation data and communication with PEGS
